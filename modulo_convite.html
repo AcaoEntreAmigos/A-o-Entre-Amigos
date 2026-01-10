@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Convite – Ação entre Amigos</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<div id="telaConvite" class="tela">
+  <h2>Convidar Amigo</h2>
+
+  <input id="nomeConvidado" placeholder="Nome do convidado">
+  <input id="telefoneConvidado" placeholder="(xx) xxxxx-xxxx" oninput="formatarTelefone(this)">
+  <button onclick="enviarConvite()">Enviar Convite</button>
+
+  <button onclick="window.location.href='dashboard.html'">Voltar</button>
+</div>
+</body>
+</html>
