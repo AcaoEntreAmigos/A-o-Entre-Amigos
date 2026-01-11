@@ -1,0 +1,71 @@
+<!-- ===============================
+     MÓDULO 1 – ADM GERADOR DE CONVITE
+     PASSO 3 – TESTE-OK
+     =============================== -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>ADM – Gerar Convite</title>
+  <style>
+    body { font-family: Arial, sans-serif; background:#f0f0f0; padding:20px }
+    .box { background:#fff; padding:20px; border-radius:8px; max-width:500px; margin:auto }
+    h1 { margin-top:0 }
+    input, button { width:100%; padding:10px; margin:6px 0 }
+    button { background:#007bff; color:#fff; border:none; border-radius:5px; cursor:pointer }
+    .link { background:#eee; padding:10px; word-break:break-all; margin-top:10px }
+  </style>
+</head>
+<body>
+<div class="box">
+  <h1>ADM – Gerador de Convite</h1>
+
+  <!-- ===============================
+       DADOS DO USUÁRIO CONVIDADOR
+       =============================== -->
+  <input id="idUsuario" placeholder="ID do Usuário (ex: AEA-0001)">
+  <input id="telefoneUsuario" placeholder="WhatsApp (xx) xxxxx-xxxx" oninput="formatarTelefone(this)">
+
+  <button onclick="gerarLink()">Gerar Link de Convite</button>
+
+  <!-- ===============================
+       LINK GERADO
+       =============================== -->
+  <div id="resultado" class="link" style="display:none"></div>
+</div>
+
+<script>
+// ===============================
+// FORMATAÇÃO TELEFONE
+// ===============================
+function formatarTelefone(campo) {
+  let v = campo.value.replace(/\D/g, "");
+  if (v.length > 11) v = v.slice(0, 11);
+  if (v.length > 6)
+    v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+  else if (v.length > 2)
+    v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+  campo.value = v;
+}
+
+// ===============================
+// GERAR LINK
+// ===============================
+function gerarLink() {
+  const id = document.getElementById("idUsuario").value.trim();
+  const tel = document.getElementById("telefoneUsuario").value.replace(/\D/g, "");
+
+  if (!id || !tel) {
+    alert("Preencha todos os campos");
+    return;
+  }
+
+  const link = `https://seusite.com/convite.html?id=${id}&tel=${tel}`;
+
+  const div = document.getElementById("resultado");
+  div.style.display = "block";
+  div.textContent = link;
+}
+</script>
+</body>
+</html>

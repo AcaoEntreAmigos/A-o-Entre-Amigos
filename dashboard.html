@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <title>Dashboard – Ação entre Amigos</title>
   <link rel="stylesheet" href="style.css">
-  <!-- SCRIPT CORRETO -->
   <script src="app.js" defer></script>
 </head>
 <body>
-
 <div id="telaDashboard" class="tela">
   <h1>Inicial</h1>
 
@@ -17,12 +15,10 @@
   <p><strong>Total de Listas:</strong> <span id="dashTotalListas">0</span></p>
 
   <p>Nomes Cadastrados: <span id="dashTotalUsuarios">0</span></p>
-
   <div style="height:150px; overflow-y:auto; border:1px solid #ccc; padding:5px; border-radius:8px;">
     <ul id="dashListaAtiva"></ul>
   </div>
 
-  <!-- BOTÕES (BASE FUNCIONAL) -->
   <button onclick="mostrarListas()">Ver Minha(s) Lista(s)</button>
   <button onclick="verMeusConvites()">Ver Meus Convites</button>
   <button onclick="irParaCadastroConvidado()">Cadastrar Usuário</button>
@@ -30,6 +26,5 @@
   <button onclick="enviarLista()">Enviar Lista</button>
   <button onclick="sair()">Sair</button>
 </div>
-
 </body>
 </html>
