@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ação entre Amigos – Regras</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ===============================
+       ESTILO PADRÃO DE TELAS
+       =============================== */
+    body {
+      background-color: #f0f0f0; /* fundo cinza */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .tela {
+      background-color: #fff; /* fundo branco da janela */
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .tela h1, .tela h2, .tela ul {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    ul li {
+      margin-bottom: 6px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      color: #fff;
+      background-color: #4285f4;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #3367d6;
+    }
+
+    label {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===============================
+     TELA DE REGRAS
+=============================== -->
+<div class="tela" id="telaRegras">
+  <h1>Ação Entre Amigos</h1>
+  <h2>Regras Importantes</h2>
+
+  <ul>
+    <li>Os dados informados devem ser verdadeiros.</li>
+    <li>O não cumprimento das regras pode resultar em exclusão.</li>
+    <li>A participação implica concordância com todas as normas.</li>
+  </ul>
+
+  <div class="btn-container">
+    <label>
+      <input type="checkbox" id="aceitoRegrasCheckbox"> Aceito as Regras
+    </label>
+    <button onclick="aceitarRegras()">Continuar</button>
+    <button onclick="sair()">Sair</button>
+  </div>
+</div>
+
+<!-- ===============================
+     TELA DE LOGIN
+=============================== -->
+<div class="tela" id="telaLogin" style="display:none">
+  <h2>Login</h2>
+  <input id="codigoLogin" placeholder="Código de acesso">
+  <input id="senhaLogin" type="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <button onclick="resetarSistema()">Resetar Sistema</button>
+</div>
+
+<script src="app.js"></script>
+<script>
+  // ===============================
+  // FLUXO INICIAL
+  // ===============================
+  window.onload = function() {
+    const usuarioAtual = JSON.parse(localStorage.getItem("usuarioAtual"));
+    const aceitou = localStorage.getItem("aceitouRegras");
+
+    if (usuarioAtual) {
+      // Usuário logado → dashboard
+      window.location.href = "dashboard.html";
+      return;
+    }
+
+    if (!aceitou || aceitou !== "sim") {
+      // Mostra regras
+      document.getElementById("telaRegras").style.display = "block";
+      document.getElementById("telaLogin").style.display = "none";
+    } else {
+      // Mostra login
+      document.getElementById("telaRegras").style.display = "none";
+      document.getElementById("telaLogin").style.display = "block";
+    }
+  };
+
+  // ===============================
+  // FUNÇÃO ACEITAR REGRAS
+  // ===============================
+  function aceitarRegras() {
+    const checkbox = document.getElementById("aceitoRegrasCheckbox");
+    if (!checkbox.checked) {
+      alert("Você precisa aceitar as regras para continuar.");
+      return;
+    }
+    localStorage.setItem("aceitouRegras", "sim");
+    document.getElementById("telaRegras").style.display = "none";
+    document.getElementById("telaLogin").style.display = "block";
+  }
+
+  // ===============================
+  // FUNÇÃO SAIR
+  // ===============================
+  function sair() {
+    localStorage.removeItem("usuarioAtual");
+    document.body.innerHTML = "";
+  }
+
+  // ===============================
+  // FUNÇÃO RESETAR SISTEMA
+  // ===============================
+  function resetarSistema() {
+    if (!confirm("Deseja resetar totalmente o sistema para teste?")) return;
+    localStorage.clear();
+    alert("Sistema resetado com sucesso! Voltando para regras.");
+    window.location.href = "index.html";
+  }
+
+  // ===============================
+  // LOGIN
+  // ===============================
+  function login() {
+    const codigo = document.getElementById("codigoLogin").value.trim();
+    const senha = document.getElementById("senhaLogin").value.trim();
+
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    const u = usuarios.find(x => x.codigo === codigo && x.senha === senha);
+
+    if (!u) {
+      alert("Código ou senha inválidos");
+      return;
+    }
+
+    localStorage.setItem("usuarioAtual", JSON.stringify(u));
+    window.location.href = "dashboard.html";
+  }
+</script>
+
+</body>
+</html>

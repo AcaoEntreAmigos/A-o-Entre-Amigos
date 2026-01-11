@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ação entre Amigos – Regras/Login</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+<!-- TELA REGRAS -->
+<div class="tela" id="telaRegras">
+  <h1>Ação Entre Amigos</h1>
+  <h2>Regras Importantes</h2>
+
+  <ul>
+    <li>Os dados informados devem ser verdadeiros.</li>
+    <li>O não cumprimento das regras pode resultar em exclusão.</li>
+    <li>A participação implica concordância com todas as normas.</li>
+  </ul>
+
+  <div class="btn-container">
+    <label>
+      <input type="checkbox" id="aceitoRegrasCheckbox">
+      Aceito as Regras
+    </label>
+    <button onclick="aceitarRegras()">Continuar</button>
+  </div>
+
+  <button style="margin-top:15px;" onclick="sair()">Sair</button>
+</div>
+
+
+<!-- TELA LOGIN -->
+<div class="tela" id="telaLogin" style="display:none;">
+  <h2>Login</h2>
+  <input id="codigoLogin" placeholder="Código de acesso">
+  <input id="senhaLogin" type="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <button onclick="resetarSistema()">Resetar Sistema</button>
+</div>
+
+</body>
+</html>
